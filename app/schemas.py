@@ -1,4 +1,4 @@
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, field_validator, ConfigDict
 from datetime import datetime
 from typing import Optional
 from app.models import TaskStatus
@@ -55,5 +55,4 @@ class TaskResponse(BaseModel):
         }
         return cls(**data)
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
