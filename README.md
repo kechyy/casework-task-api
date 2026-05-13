@@ -1,37 +1,61 @@
 # casework-task-api
 
-REST API for managing caseworker tasks. Built with FastAPI and PostgreSQL.
+Task management REST API for HMCTS caseworkers built with FastAPI and PostgreSQL.
 
 ## Stack
-- FastAPI
+
+- Python 3.9 / FastAPI
 - PostgreSQL
 - SQLAlchemy
 - Pytest
+- Docker
 
-## Running locally
+## Running with Docker
 
-```bash
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-Copy the example env file and update with your local database credentials:
+Copy the example env file and fill in your values:
 
 ```bash
 cp .env.example .env
 ```
 
-Start the server:
+Then start the services:
 
 ```bash
+docker-compose up --build
+```
+
+API runs on `http://localhost:8001`
+API docs at `http://localhost:8001/docs`
+
+## Running locally
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
 uvicorn app.main:app --reload
 ```
 
-API docs available at `http://localhost:8000/docs`
-
-## Running tests
+## Tests
 
 ```bash
-pytest
+pytest -v
 ```
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | /tasks | Get all tasks |
+| POST | /tasks | Create a task |
+| GET | /tasks/{id} | Get task by ID |
+| PATCH | /tasks/{id}/status | Update task status |
+| DELETE | /tasks/{id} | Delete a task |
+
+## Future improvements
+
+- Alembic migrations for schema version control
+- User authentication
+- Email notifications for overdue tasks
+- Priority levels
